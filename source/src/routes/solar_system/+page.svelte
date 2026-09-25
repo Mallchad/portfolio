@@ -121,6 +121,7 @@ button:hover {
     <button id="startRender" class = "soft-tan-button">Start Render</button>
     <button id="pauseRender">Pause Render</button>
     <button id="saveRender">Save Render</button>
+    <button id="simulation_restart" class = "soft-tan-button">Simulation Restart</button>
 
 <!-- Add this slider somewhere in your body -->
 <div style="display: flex; flex-direction: column; gap 10px; width: fit-content">
@@ -131,11 +132,13 @@ button:hover {
     <input type="range" id="timestep_slider" class="slider-input" min="1" max="1000" value="1">
 
 </div>
+<h> Stats: </h>
+    <div id="display_box"> </div>
     <div id="debug_box"> </div>
 
     <svg id="solar_system" width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
       <circle id="orbit_mercury" cx="500" cy="500" r="1838.6875" stroke="var(--color-foreground)" stroke-width="0.2em" fill="none" />
-      <circle id="orbit_earth" cx="500" cy="500" r="1838.6875" stroke="var(--color-foreground)" stroke-width="0.2em" fill="none" />
+      <circle id="orbit_earth" cx="500" cy="500" r="1838.6875" stroke="var(--color-foreground)" stroke-width="0.2em" fill="none" opacity=0.7 />
       <circle id="body_sun" cx="500" cy="500" r="8.69625" stroke="var(--color-foreground)" fill="white" />
       <circle id="body_earth" cx="500" cy="500" r="3" fill="black" stroke="var(--color-foreground)" stroke-width="2" />
 
@@ -215,6 +218,7 @@ button:hover {
       var timestep_label = document.getElementById('timestep_label')
       var debug_box = document.getElementById('debug_box')
       var debug_string = ""
+      var display_string = ""
       var debug_enabled = false
 
 
@@ -277,13 +281,15 @@ button:hover {
           earth_element.setAttribute("cy", earth_y);
         }
 
-        const days_elapsed = Math.ceil(dom_time_s * time_scale * (1/day_seconds))
-        debug_string += `days elapsed: ${days_elapsed}`
+        const days_elapsed = Math.ceil(sim_time * (1/day_seconds))
+        display_string += `Days Elapsed: ${days_elapsed}`
         
         if (debug_enabled)
         {
           debug_box.innerText = debug_string
         }
+        display_box.innerText = display_string
+        display_string = ""
         debug_string = ""
         animation_frame = requestAnimationFrame( update_solar_system );
       }
@@ -305,9 +311,16 @@ button:hover {
         console.log( `Time Acceleration: ${days} day/s` )
         
       }
+
+      function simulation_reset()
+      {
+        sim_time_base = 0
+        dom_time_base = dom_time_s
+      }
       
       // Register listeners
       timestep_slider.addEventListener( 'input', update_base_orbits );
+      document.getElementById('simulation_restart').addEventListener('click', simulation_reset)
       // run listeners that need it once first so it can update
       update_base_orbits()
 
