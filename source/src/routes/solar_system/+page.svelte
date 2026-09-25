@@ -5,34 +5,72 @@
 </head>
 
 <style>
+
+  /* Need to apply default colours here or previous svelte routes break this page's theme */
+:root {
+  /* Variables */
+  --color-foreground: tan;
+  --color-background: #0f0f0f;
+  /* Universal Ultra high contrast colors*/
+  /* --color-foreground: #ffffff; */
+  /* --color-background: #000000; */
+  /* 
+     Color Specific AI suggested perceptual contras
+   | Observer Type | Primary Constraint | Optimization Strategy | The "Ideal" Salient Combo |
+   | :--- | :--- | :--- | :--- |
+   | **Normal Vision** | Visual Fatigue | Luminance/Neutrality | White/Black or Dark Gray/Light Gray |
+   | **Achromatopsia** | Low Luminance Sensitivity | **Luminance Peak ($\lambda \approx 555\text{nm}$)**    | **`#E6FFD2` on `#050800`** |
+   | **Protanopia** (Red-Blind) | Missing Long-Wave Signal | **Blue-Yellow Opponent Gap** | **`#F0FF00` on `#000520`** |
+| **Deuteranopia** (Green-Blind) | Missing Medium-Wave Signal | **Blue-Red Opponent Gap** | **`#FFD700` on `#080010`** |*/
+  /* Archromatopsia Test */
+  /* --color-foreground: #e6ffd2; */
+  /* --color-background: #050800; */
+  /* Protanopia */
+  /* --color-foreground: #f0ff00; */
+  /* --color-background: #000520; */
+
+  /* --color-foreground: #ffd700; */
+  /* --color-background: #080010; */
+
+  
+
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+
+}
 body {
-    background-color: #0a0a0a;
-    color: tan;
-    <!-- display: flex; -->
-    <!-- justify-content: center; -->
+    /* <!-- display: flex; --> */
+    /* <!-- justify-content: center; --> */
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
+    overflow-y: auto; /* This restores vertical scrolling */
+    overflow-x: hidden; /* This prevents annoying horizontal side-scrolling */
+}
+
+svg {
+  /* transform: translateZ(0); /\* Forces GPU acceleration *\/ */
+  /* shape-rendering: geometricPrecision; */
+  /* shape-rendering: optimizeSpeed */
 }
 
 button {
-    /* 1. Define the shape (Rounded corners) */
     border-radius: 5px;
-
-    /* 2. Define the color: Border is soft tan */
-    border: 2px solid tan; /* Soft Tan Border */
-
-    /* 3. Define the color: Font is soft tan */
-    color: tan; /* Soft Tan text color */
-
-    /* 4. Define the background: Transparent */
+    border: 2px solid; /* Soft Tan Border */
     background-color: transparent;
 
-    /* 5. Basic styling for readability */
     padding: 10px 20px;
     cursor: pointer;
     font-family: sans-serif; /* Set a font family for consistency */
+}
+
+.button_list {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  font-size: 0.8em;
+  gap: 5px;
+  white-space: nowrap;
 }
 
 .slider-input {
@@ -42,11 +80,11 @@ button {
 
     /* Ensure the slider itself uses the theme colors */
     <!-- background-color: none; -->
-                                 color: tan;
+                                 color: var(--color-foreground);
     /* You may need to override default browser styling for the track/thumb */
     cursor: pointer;
     background: none;
-    border: 2px solid tan;
+    border: 2px solid;
     border-radius: 10px;
     opacity: 0.7;
 
@@ -57,14 +95,15 @@ button {
   appearance: none;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-border-radius: 40px;
-    border: 3px solid tan;
-  background: none;
+  border-radius: 40px;
+    border: 3px solid;
+    background: inherit-foreground;
   cursor: pointer; /* Cursor on hover */
 }
 
 .slider-input::-webkit-slider-thumb:hover {
-background: blue;
+  background: none;
+  transition: background-color 0.1s ease-in-out;
 }
 
 </style>
@@ -87,15 +126,48 @@ background: blue;
     <input type="range" id="timestep_slider" class="slider-input" min="1" max="1000" value="1">
 
 </div>
-<div id="debug_box"> </div>
+    <div id="debug_box"> </div>
 
     <svg id="solar_system" width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
-      <circle id="orbit_mercury" cx="500" cy="500" r="1838.6875" stroke="tan" stroke-width="1" fill="none" />
-      <circle id="orbit_earth" cx="500" cy="500" r="1838.6875" stroke="tan" stroke-width="1" fill="none" />
-      <circle id="body_sun" cx="500" cy="500" r="8.69625" stroke="tan" stroke-width="3" fill="none" />
-      <circle id="body_earth" cx="500" cy="500" r="5" fill="blue" stroke="white" stroke-width="1" />
+      <circle id="orbit_mercury" cx="500" cy="500" r="1838.6875" stroke="var(--color-foreground)" stroke-width="0.2em" fill="none" />
+      <circle id="orbit_earth" cx="500" cy="500" r="1838.6875" stroke="var(--color-foreground)" stroke-width="0.2em" fill="none" />
+      <circle id="body_sun" cx="500" cy="500" r="8.69625" stroke="var(--color-foreground)" fill="white" />
+      <circle id="body_earth" cx="500" cy="500" r="3" fill="black" stroke="var(--color-foreground)" stroke-width="2" />
 
     </svg>
+
+
+    <div class="button_list">
+      <a href="/solar_system"
+         class= "bg-transparent font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
+        Solar System Toy
+      </a>
+      <a href="https://notes-vu8.pages.dev/"
+         class= "bg-transparent hover:bg-tan text-tan; font-semibold hover:text-white py-2 px-4 border border-tan  hover:rounded-full rounded">
+        Personal Notes
+      </a>
+
+      <a href="https://mallchad.com/github"
+         class= "bg-transparent hover:bg-tan text-tan font-semibold hover:text-white py-2 px-4 border border-tan  hover:rounded-full rounded">
+        GitHub
+      </a>
+
+      <a href="https://www.youtube.com/@Mallchad/videos"
+         class= "bg-transparent hover:bg-tan text-tan font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
+        YouTube
+      </a>
+    </div>
+
+    <div class="button_list">
+      <a href="/"
+         class= "bg-transparent font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
+        Home </a>
+
+      <a href="/dev"
+         class= "bg-transparent hover:bg-tan text-tan font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
+        Home (Experimental) </a>
+
+    </div>
 
 
     <script>
@@ -240,6 +312,5 @@ background: blue;
       // cancelAnimationFrame(animation_frame); 
 
     </script>
-
-
 </body>
+
