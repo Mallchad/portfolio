@@ -228,7 +228,7 @@ button:hover {
         const scale_value = parseFloat(scale_slider.value);
         const sim_time_advance_part = (((dom_time_s - dom_time_base) * time_scale))
         sim_time = sim_time_base + sim_time_advance_part
-        debug_seconds = sim_time_advance_part / day_seconds
+        const debug_seconds = sim_time_advance_part / day_seconds
         debug_string += `${debug_seconds}\n`
         
           // Temporary reinstate
@@ -265,7 +265,7 @@ button:hover {
           */
           
           // orbital period = 1 turn / days
-          orbital_period = 365.25 * day_seconds
+          const orbital_period = 365.25 * day_seconds
           const angular_velocity = (tau / orbital_period)
           earth_angle = base_position + 1 * angular_velocity * (sim_time % orbital_period);
 
@@ -302,11 +302,7 @@ button:hover {
         sim_time_base = sim_time
         dom_time_base = dom_time_s
         
-        // Stamp out calculated angle permanantly to provide new setpoint to
-        // keeping timescale modification smooth
-        current_position = earth_angle % tau
-
-        days = time_scale / day_seconds
+        const days = time_scale / day_seconds
         timestep_label.innerText = `Time Acceleration: ${days} days/s`
         console.log( `Time Acceleration: ${days} day/s` )
         
