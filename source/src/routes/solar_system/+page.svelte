@@ -11,6 +11,7 @@
   /* Variables */
   --color-foreground: tan;
   --color-background: #0f0f0f;
+  --color-hover: #ffffff;
   /* Universal Ultra high contrast colors*/
   /* --color-foreground: #ffffff; */
   /* --color-background: #000000; */
@@ -62,6 +63,10 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     font-family: sans-serif; /* Set a font family for consistency */
+}
+button:hover {
+  color: var(--color-hover);
+  border-radius: 1em;
 }
 
 .button_list {
