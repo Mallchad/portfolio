@@ -64,7 +64,6 @@
 
       .media_list {
         grid-template-columns: 1fr 1fr;
-        background-color: pink;
       }
 
       .video_container {
@@ -111,7 +110,7 @@
       font-size: 2em
     }
   </style>
-  <h1 font-size=50> Mallchad </h1>
+  <h1 font-size=50> Mallchad (Experimental Page) </h1>
 
   <p margin=2px>
     general@mallchad.com
