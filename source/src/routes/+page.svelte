@@ -182,7 +182,7 @@
       <!-- spinny_metallic_and_specular.gif -->
   </div>
   <div class="button_list">
-    <a href="/simple_animations"
+    <a href="/solar_system"
        class= "bg-transparent font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
       Solar System Toy
       </a>
