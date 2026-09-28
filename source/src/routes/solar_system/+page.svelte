@@ -1,3 +1,9 @@
+<script>
+        import * as sol from "./main.js"
+  // sol.tau = 3
+  // let body_earth;
+</script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,6 +81,7 @@ button:hover {
   justify-content: center;
   font-size: 0.8em;
   gap: 5px;
+  /* TODO: What does this mean???*/
   white-space: nowrap;
 }
 
@@ -142,9 +149,6 @@ button:hover {
       <circle id="body_sun" cx="500" cy="500" r="8.69625" stroke="var(--color-foreground)" fill="white" />
       <circle id="body_earth" cx="500" cy="500" r="3" fill="black" stroke="var(--color-foreground)" stroke-width="2" />
 
-    </svg>
-
-
     <div class="button_list">
       <a href="/solar_system"
          class= "bg-transparent font-semibold hover:text-white py-2 px-4 border border-tan rounded hover:rounded-full">
@@ -178,7 +182,8 @@ button:hover {
     </div>
 
 
-    <script>
+    <script type="module">
+      // sol.tau = 5
       var tau = 6.28
       var earth_angle = 0;
       // base_position is abitrary stat point, will have to be added to argument or periapsis
@@ -232,7 +237,7 @@ button:hover {
         debug_string += `${debug_seconds}\n`
         
           // Temporary reinstate
-        // sim_time = dom_time_s * time_scale
+        sim_time = dom_time_s * time_scale
         console.log( "scale value", scale_value )
 
         const solar_system = document.getElementById('solar_system')
@@ -277,8 +282,9 @@ button:hover {
 
           // Update Earth's position
           const earth_element = document.getElementById('body_earth');
-          earth_element.setAttribute("cx", earth_x);
+            earth_element.setAttribute("cx", earth_x);
           earth_element.setAttribute("cy", earth_y);
+
         }
 
         const days_elapsed = Math.ceil(sim_time * (1/day_seconds))
@@ -310,6 +316,7 @@ button:hover {
 
       function simulation_reset()
       {
+        sim_time = 0
         sim_time_base = 0
         dom_time_base = dom_time_s
       }
